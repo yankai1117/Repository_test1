@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/bcprov-jdk15on-1.54.jar"/>
+	<classpathentry kind="lib" path="lib/hisungetweekday.jar"/>
+	<classpathentry kind="lib" path="lib/hisunmail.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-api-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/fastjson-3.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/fluent-hc-4.5.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/hicommon.jar"/>
+	<classpathentry kind="lib" path="lib/himngutil.jar"/>
+	<classpathentry kind="lib" path="lib/hipubatc.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
