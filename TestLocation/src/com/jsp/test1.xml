@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eap2.net" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.eap2.net http://www.eap2.net/eap2/component.xsd "
+ name="工作流" id="workflow" instance-scope="SINGLE">
+		<description>工作流系统</description>
+		<developer name="" url="" mail=""/>
+		
+		<actions>
+			<get id="leftmenu" class="" name="工作流左菜单">
+				<view type="XML">com/originsys/eap/workflow/view/leftmenu.ftl</view>
+			</get>
+			<get id="aa" class="com.originsys.eap.workflow.action.RemoteTest" name="aa"  >
+				<view type="html">com/originsys/eap/workflow/view/workflowblock.ftl</view>		
+			</get>
+			<data id="activeflow" class="com.originsys.eap.workflow.action.ActiveFlow" name="激活或禁用"></data>
+			<get id="block" class="" name="工作流首页"  >
+				<view type="html">com/originsys/eap/workflow/view/workflowblock.ftl</view>		
+			</get>
+			<!-- 列出所有流程，显示流程名称、类型、可否人工启动、表单名称，上面按钮为修改、查看，点击跳转到修改/查看页面 -->
+			<get id="flowlist" class="com.originsys.eap.workflow.action.ForFlowList" name="流程列表"  >
+				<view type="html">com/originsys/eap/workflow/view/workflowlist.ftl</view>		
+			</get>
+			<get id="flowlistdata" class="com.originsys.eap.workflow.action.WorkFlowList" name="流程列表数据"  >
+				<view type="plain">com/originsys/eap/workflow/view/workflowlistdata.ftl</view>		
+			</get>
+			<get id="flowlistdata2" class="com.originsys.eap.workflow.action.WorkFlowList" name="流程列表数据根据流程类型过滤"  >
+				<view type="plain">com/originsys/eap/workflow/view/workflowlistdata2.ftl</view>		
+			</get>
+			<get id="flowinstancestart" class="" name="新建流程"  is-homepage="true">
+				<view type="html">com/originsys/eap/workflow/view/flowinstancestart.ftl</view>		
+			</get>
+			<!-- 只有表单 -->
+			<get id="flowlistinsert" class="" name="新建流程定义" >
+				<view type="html">com/originsys/eap/workflow/view/workflowlistinsert.ftl</view>		
+			</get>
+			<get id="formlist" class="com.originsys.eap.workflow.action.ForFormList" name="表单列表"  is-homepage="true">
+				<view type="html">com/originsys/eap/workflow/view/formlist.ftl</view>		
+			</get>
+			
+			
+			<get id="forminfolistdata" class="com.originsys.eap.workflow.action.FormList" name="表单信息列表数据" >
+				<view type="plain">com/originsys/eap/workflow/view/forminfolistdata.ftl</view>		
+			</get>
+			
+			
+			
+			
+			<get id="formdesignmain" class="com.originsys.eap.workflow.action.FormTemplateInfo" name="表单设计主界面" >
+				<view type="html">com/originsys/eap/workflow/view/formdesignmain.ftl</view>		
+			</get>
+			<get id="formview" class="com.originsys.eap.workflow.action.FormTemplateInfo" name="表单预览" >
+				<view type="html">com/originsys/eap/workflow/view/formview.ftl</view>		
+			</get>
+			<get id="formforinsert" class="com.originsys.eap.workflow.action.FormSetting" name="表单增加/修改" >
+				<view type="html">com/originsys/eap/workflow/view/formsetting.ftl</view>		
+			</get>
+			<data id="forminfomanager" class="com.originsys.eap.workflow.action.FormInfoManager" name="表单信息管理" ></data>
+			<data id="formtemplatesave" class="com.originsys.eap.workflow.action.FormTemplateSave" name="表单模板信息保存" ></data>
+			<data id="formtextexport" class="com.originsys.eap.workflow.action.FormTextExport" name="导出表单数据信息"/>
+			<get id="feedbackmanager" class="com.originsys.eap.workflow.action.FeedbackInfoManager" name="签办反馈信息保存" >
+				<view type="plain">com/originsys/eap/workflow/view/feedback.ftl</view>
+			</get>
+			
+			<!-- 列出当前用户所有已办任务，显示任务标题、任务创建时间、完成时间、流程名称、节点名称 -->
+			<get id="passedtaskqueue" class="com.originsys.eap.workflow.action.TaskQueueList" name="已办任务" >
+				<view type="plain">com/originsys/eap/workflow/view/taskqueuelistdata.ftl</view>		
+			</get>
+			<!-- 列出当前用户创建的所有流程，显示各分类 下的流程实例数，点击分类或实例数，进入列表，列出所有实例 -->
+			<get id="taskqueue" class="com.originsys.eap.workflow.action.TaskQueueList" name="我的请求" >
+				<view type="plain">com/originsys/eap/workflow/view/taskqueuelistdata.ftl</view>		
+			</get>
+			<get id="taskqueuelist" class="com.originsys.eap.workflow.action.ForTaskQueueList" name="待办任务列表" >
+				<view type="html">com/originsys/eap/workflow/view/taskqueuelist.ftl</view>		
+			</get>
+			<get id="taskqueuelist_ext" class="com.originsys.eap.workflow.action.ForTaskQueueList" name="已办任务列表" >
+				<view type="html">com/originsys/eap/workflow/view/taskqueuelist_ext.ftl</view>		
+			</get>
+			<get id="formdialog" class="" name="选择表单对话框" >
+				<view type="html">com/originsys/eap/workflow/view/formdialog.ftl</view>		
+			</get>
+			<!-- 弹出对话框方式的下步节点设置 -->
+			<get id="nextnodesetting" class="com.originsys.eap.workflow.action.NextNodeSetting" name="任务提交设置">
+				<view type="plain">com/originsys/eap/workflow/view/sethandleuser.ftl</view>
+			</get>
+			<!-- 跳转方式的下步节点设置 -->
+			<get id="nextnodesettingpage" class="com.originsys.eap.workflow.action.NextNodeSetting" name="任务提交设置">
+				<view type="html">com/originsys/eap/workflow/view/sethandleuser.ftl</view>
+			</get>
+			<data id="nextnodesettingsave" class="com.originsys.eap.workflow.action.NextNodeSettingSave" name="任务提交设置保存"/>
+			<!-- 弹出对话框方式的回退设置 -->
+			<get id="rejection" class="com.originsys.eap.workflow.action.Rejection" name="回退设置">
+				<view type="plain">com/originsys/eap/workflow/view/rejection.ftl</view>
+			</get>
+			<data id="rejectionsubmit" class="com.originsys.eap.workflow.action.RejectionSubmit" name="回退提交" />
+			
+			<post id="appraisal" class="com.originsys.eap.workflow.action.CusManagerAppraisal" name="客户经理评聘-直接启动" is-switch="true"/>
+			<get id="userdialog" class="com.originsys.manager.user.UserDialog" name="用户列表指定查询条件多选">
+				<view type="html">com/originsys/eap/workflow/view/assigneedialog.ftl</view>
+			</get>
+			<get id="userradiodialog" class="com.originsys.manager.user.UserDialog" name="用户列表指定查询条件单选">
+				<view type="html">com/originsys/eap/workflow/view/assigneedialogradio.ftl</view>
+			</get>
+			<!-- 选择下步处理人的用户列表数据 -->
+			<get id="userlist" class="com.originsys.eap.workflow.action.AssigneeList" name="用户列表json指定查询条件">
+				<view type="plain">com/originsys/eap/workflow/view/assigneelist.ftl</view>
+			</get>
+			<get id="forDefaultUser" class="" name="设置默认办理人">
+				<view type="html">com/originsys/eap/workflow/view/setdefaultuser.ftl</view>
+			</get>
+			<get id="organizer" class=""  name="设置默认主办人">
+				<view type="html">com/originsys/eap/workflow/view/setorganizer.ftl</view>
+			</get>
+			<get id="handle" class="" name="设置办理人">
+				<view type="html">com/originsys/eap/workflow/view/sethandleuser1.ftl</view>
+			</get>
+			<auto id="sendmail" class="com.originsys.eap.workflow.service.SendMail" name="发送邮件"/>
+			<!-- 流程终止 -->
+			<data id="endwork" class="com.originsys.eap.workflow.action.FlowCancel" name="办理时终止流程"/>
+			<data id="statechange" class="com.originsys.eap.workflow.action.FlowStateChange" name="挂起/恢复流程实例"/>
+			<data id="flowstart1" class="com.originsys.eap.workflow.action.FlowStart1" name="挂起流程启动1"/>
+			<data id="flowstart2" class="com.originsys.eap.workflow.action.FlowStart2" name="挂起流程启动1"/>	
+			<get id="flowstartnodelist"	class="com.originsys.eap.workflow.action.FlowStartNodeList" name="回退及下级节点列表">
+				<view type="html">com/originsys/eap/workflow/view/flowstartnodelist.ftl</view>
+			</get>
+			<data id="flowturnto" class="com.originsys.eap.workflow.action.FlowTurnTo" name="任务转办"/>
+			<get id="getformfields" class="com.originsys.eap.workflow.action.FlowFormField" name="获取表单域">
+				<view type="XML">com/originsys/eap/workflow/view/formfields.ftl</view>
+			</get>
+			<get id="getautotaskfields" class="com.originsys.eap.workflow.action.AutoTaskParameters" name="获取自动执行类的输入输出参数">
+				<view type="XML">com/originsys/eap/workflow/view/autotaskfields.ftl</view>
+			</get>
+			<!-- 流程类型 -->
+			<get id="flowtypelist" class="" name="流程类型列表">
+			<view type="html">com/originsys/eap/workflow/view/workflowtypelist.ftl</view>
+			</get>
+			<get id="flowtypedata" class="com.originsys.eap.workflow.action.FlowTypeList" name="流程类型列表数据">
+				<view type="plain">com/originsys/eap/workflow/view/workflowtypelistdata.ftl</view>
+			</get>
+			<get id="flowtypefilds" class="com.originsys.eap.workflow.action.FlowTypeList" name="流程类型列表数据">
+				<view type="XML">com/originsys/eap/workflow/view/typefields.ftl</view>
+			</get>
+			<get id="orderflow_type" class="com.originsys.eap.workflow.action.FlowTypeList" name="流程类型排序">
+				<view type="html">com/originsys/eap/workflow/view/workflowtypeorder.ftl</view>
+			</get>
+			<data id="insertflow_type" class="com.originsys.eap.workflow.action.FlowTypeSave" name="保存流程类型"/>
+			<data id="updateflow_type" class="com.originsys.eap.workflow.action.FlowTypeUpdate" name="修改流程类型"/>
+			<data id="deleteflow_type" class="com.originsys.eap.workflow.action.FlowTypeDelete" name="删除流程类型"/>
+			<!-- 查询是否流程是否已有实例 -->
+			<data id="has_instance" class="com.originsys.eap.workflow.action.FlowDelete" name="确认并删除流程" />
+			<get id="getinstance_workflow" class="com.originsys.eap.workflow.action.FlowInstanceList" name="流程下的实例列表">
+				<view type="html">com/originsys/eap/workflow/view/workflowinstancelist.ftl</view>
+			</get>
+			<get id="getinstance_workflow_data" class="com.originsys.eap.workflow.action.FlowInstanceList" name="流程下的实例列表数据">
+				<view type="plain">com/originsys/eap/workflow/view/workflowinstancelistdata.ftl</view>
+			</get>
+			<data id="deleteinstance" class="com.originsys.eap.workflow.action.FlowInstanceDelete" name="删除实例" />
+			<get id="flowinstancelist" class="com.originsys.eap.workflow.action.FlowInstanceList" name="流程实例列表"  is-homepage="true">
+				<view type="html">com/originsys/eap/workflow/view/flowinstancelist.ftl</view>		
+			</get>							
+			<get id="formexecute" class="com.originsys.eap.workflow.action.FormExecute" name="表单任务处理">
+				<view type="html">com/originsys/eap/workflow/view/formexecute.ftl</view>
+			</get>
+			<get id="formviewinflow" class="com.originsys.eap.workflow.action.FormExecute" name="流程中表单查看">
+				<view type="html">com/originsys/eap/workflow/view/formviewinflow.ftl</view>
+			</get>
+			<data id="formsave" class="com.originsys.eap.workflow.action.FormSave" name="表单任务提交"/>	
+			<data id="actionsave" class="com.originsys.eap.workflow.action.ActionSave" name="任务提交"/>
+			<get id="flowpanel" class="com.originsys.eap.workflow.action.FlowPanel" name="辅助面板">
+				<view type="html">com/originsys/eap/workflow/view/workflow_after.ftl</view>
+			</get>		
+			<!-- 启动流程 -->
+			<get id="instancestart" class="com.originsys.eap.workflow.action.FlowList" name="启动新建流程">
+				<view type="html">com/originsys/eap/workflow/view/flowlist.ftl</view>
+			</get>
+			<get id="myflowlist" class="com.originsys.eap.workflow.action.MyFlowList" name="我的请求">
+				<view type="html">com/originsys/eap/workflow/view/myflowlist.ftl</view>
+			</get>
+			<get id="myflowdetail" class="com.originsys.eap.workflow.action.MyFlowDetail" name="我的请求详细信息">
+				<view type="html">com/originsys/eap/workflow/view/myflowdetail.ftl</view>
+			</get>
+			<get id="selectinstance_my" class="com.originsys.eap.workflow.action.MyFlowDetail" name="我的请求详细信息data">
+				<view type="plain">com/originsys/eap/workflow/view/myflowdetaildata.ftl</view>
+			</get>
+			
+			
+			
+			<!-- 重构修改 -->
+			<get id="versionlist" class="com.originsys.eap.workflow.action.FlowVersionList" name="流程版本列表" >
+				<view type="html">com/originsys/eap/workflow/view/flowversionlist.ftl</view>		
+			</get>
+			<data id="flowsave" class="com.originsys.eap.workflow.action.FlowSave" name="流程创建"/>
+			<data id="flowupdate" class="com.originsys.eap.workflow.action.FlowUpdate" name="流程修改"/>
+			<post id="flowstart" class="com.originsys.eap.workflow.action.FlowStart" name="流程启动" is-switch="true">
+			</post>
+			<get id="forupdate" class="com.originsys.eap.workflow.action.ForFlowList" name="获得流程" >
+				<view type="html">com/originsys/eap/workflow/view/flowsetting.ftl</view>		
+			</get>	
+			<!-- 读取流程XML -->
+			<data id="getflowxml" class="com.originsys.eap.workflow.action.FlowSetting" name="读取流程XML" ></data>
+
+			<get id="noderemindsetting" class="com.originsys.eap.workflow.action.NextNodeRemindSetting" name="下步环节提醒设置">
+				<view type="html">com/originsys/eap/workflow/view/nextnoderemindsetting.ftl</view>
+			</get>
+			<data id="noderemindsave" class="com.originsys.eap.workflow.action.NextNodeRemindSettingSave" name="下步环节提醒保存"/>
+			<!-- 提醒模块 -->
+			<data id="ramindsave" class="com.originsys.eap.workflow.action.RamindSave" name="保存到达提醒方式" ></data>
+			<data id="getRamind" class="com.originsys.eap.workflow.action.RamindSetting" name="读取提醒" ></data>
+			<get id="ramind" class="" name="系统提醒" >
+				<view type="html">com/originsys/eap/workflow/view/settingramind.ftl</view>
+			</get>
+			<get id="remotestarthelp" class="com.originsys.eap.workflow.action.RemoteStartHelp" name="远程流程启动帮助">
+				<view type="html">com/originsys/eap/workflow/view/remotestarthelp.ftl</view>
+			</get>
+			<get id="nodexml" class="com.originsys.eap.workflow.action.InstanceNodeXml" name="流程实例节点列表xml">
+				<view type="XML">com/originsys/eap/workflow/view/nodexml.ftl</view>
+			</get>
+			<!-- 我参与的工作 -->
+			<get id="mytasklist" class="" name="我参与的工作列表">
+				<view type="html">com/originsys/eap/workflow/view/mytask.ftl</view>
+			</get>
+			<get id="mytasklistdata" class="com.originsys.eap.workflow.action.MyTaskList" name="我参与的工作列表数据">
+				<view type="plain">com/originsys/eap/workflow/view/mytaskdata.ftl</view>
+			</get>
+
+			<get id="standingbooksetting" class="com.originsys.eap.workflow.action.StandingBookSetting" name="流程台账输出设置">
+				<view type="html">com/originsys/eap/workflow/view/standingbooksetting.ftl</view>
+			</get>
+			<data id="standingbookexport" class="com.originsys.eap.workflow.action.StandingBookExport" name="流程台账输出"/>
+			<data id="standingbooksettingsave" class="com.originsys.eap.workflow.action.StandingBookSettingSave" name="流程台账设置保存"/>
+			<get id="grantdetail" class="com.originsys.eap.workflow.action.FlowGrantDetail" name="授权设置">
+				<view type="html">com/originsys/eap/workflow/view/flowgrant.ftl</view>
+			</get>
+			<data id="grantsave" class="com.originsys.eap.workflow.action.FlowGrantSave" name="授权设置保存"/>
+			<data id="grantcancel" class="com.originsys.eap.workflow.action.FlowGrantCancel" name="授权设置取消"/>
+			<post id="remote.login" class="com.inspurfis.samms.action.RemoteLogin" name="远程不安全登录" is-switch="true"></post>
+			
+			<!-- 公文操作开始  -->
+			<get id="forsealinsert" class="" name="公文印章预增加">
+				<view type="html">com/originsys/eap/workflow/doc/view/fordocinsert.ftl</view>
+			</get>
+			<data id="sealsave" class="com.originsys.eap.workflow.doc.action.SealInsert" name="公文印章保存"/>
+			<get id="forsealupdate" class="com.originsys.eap.workflow.doc.action.SealDetail" name="公文印章预修改">
+				<view type="html">com/originsys/eap/workflow/doc/view/fordocupdate.ftl</view>
+			</get>
+			<data id="sealupdate" class="com.originsys.eap.workflow.doc.action.SealUpdate" name="公文印章修改"/>
+			<get id="sealdetail" class="com.originsys.eap.workflow.doc.action.SealDetail" name="公文印章详细">
+				<view type="html">com/originsys/eap/workflow/doc/view/sealdetail.ftl</view>
+			</get>
+			<get name="公文印章列表" class="" id="seallist">
+				<view type="html">com/originsys/eap/workflow/doc/view/seallist.ftl</view>
+			</get>
+			<get name="公文印章列表数据" class="com.originsys.eap.workflow.doc.action.SealList" id="seallistjson">
+				<view type="plain">com/originsys/eap/workflow/doc/view/seallistjson.ftl</view>
+			</get>
+			<data name="公文印章删除" class="com.originsys.eap.workflow.doc.action.SealDelete" id="sealdelete"/>
+			<get name="公文印章列表弹出窗口" class="com.originsys.eap.workflow.doc.action.SealListDialog" id="seallistdialog" template="dialog">
+				<view type="html">com/originsys/eap/workflow/doc/view/seallistdialog.ftl</view>
+			</get>
+			<get id="doc.formlist" class="com.originsys.eap.workflow.action.ForFormList" name="表单列表-公文模板">
+				<view type="html">com/originsys/eap/workflow/doc/view/formlist.ftl</view>		
+			</get>
+			<get id="fortemplateinsert" class="com.originsys.eap.workflow.action.FlowFormField" name="公文模板预增加">
+				<view type="html">com/originsys/eap/workflow/doc/view/fortemplateinsert.ftl</view>
+			</get>
+			<data id="templatesave" class="com.originsys.eap.workflow.doc.action.TemplateInsert" name="公文模板保存"/>
+			<data id="templateexists" class="com.originsys.eap.workflow.doc.action.TemplateExists" name="公文模板是否存在"/>
+			<get id="fortemplateupdate" class="com.originsys.eap.workflow.doc.action.TemplateDetail" name="公文模板预修改">
+				<view type="html">com/originsys/eap/workflow/doc/view/fortemplateupdate.ftl</view>
+			</get>
+			<data id="templateupdate" class="com.originsys.eap.workflow.doc.action.TemplateUpdate" name="公文模板修改"/>
+			<data id="docupload" class="com.originsys.eap.workflow.doc.action.DocUpload" name="公文正文保存"/>
+			<get name="公文模板列表" class="com.originsys.eap.workflow.doc.action.ForTemplateList" id="templatelist">
+				<view type="html">com/originsys/eap/workflow/doc/view/templatelist.ftl</view>
+			</get>
+			<get name="公文模板列表数据" class="com.originsys.eap.workflow.doc.action.TemplateList" id="templatelistjson">
+				<view type="plain">com/originsys/eap/workflow/doc/view/templatelistjson.ftl</view>
+			</get>
+			<data name="公文模板删除" class="com.originsys.eap.workflow.doc.action.TemplateDelete" id="templatedelete"/>
+			<get name="公文模板列表弹出窗口" class="com.originsys.eap.workflow.doc.action.TemplateListDialog" id="templatelistdialog" template="dialog">
+				<view type="html">com/originsys/eap/workflow/doc/view/templatelistdialog.ftl</view>
+			</get>
+			
+			<get name="签名图片列表" class="" id="signaturelist">
+				<view type="html">com/originsys/eap/workflow/doc/view/signaturelist.ftl</view>
+			</get>
+			<get name="签名图片列表数据" class="com.originsys.eap.workflow.doc.action.SignatureList" id="signaturelistjson">
+				<view type="plain">com/originsys/eap/workflow/doc/view/signaturelistjson.ftl</view>
+			</get>
+			<data name="签名图片删除" class="com.originsys.eap.workflow.doc.action.SignatureDelete" id="signaturedelete"/>
+			<get name="签名图片预增加" class="" id="forsignatureinsert">
+				<view type="html">com/originsys/eap/workflow/doc/view/forsignatureinsert.ftl</view>
+			</get>
+			<data name="签名图片增加" class="com.originsys.eap.workflow.doc.action.SignatureInsert" id="signaturesave"/>
+			<get name="签名图片预修改" class="com.originsys.eap.workflow.doc.action.SignatureDetail" id="forsignatureupdate">
+				<view type="html">com/originsys/eap/workflow/doc/view/forsignatureupdate.ftl</view>
+			</get>
+			<data name="签名图片修改" class="com.originsys.eap.workflow.doc.action.SignatureUpdate" id="signatureupdate"/>
+			<get name="签名图片详细" class="com.originsys.eap.workflow.doc.action.SignatureDetail" id="signaturedetail">
+				<view type="html">com/originsys/eap/workflow/doc/view/signaturedetail.ftl</view>
+			</get>
+			<get name="签名图片列表弹出窗口" class="com.originsys.eap.workflow.doc.action.SignatureDialog" id="signaturedialog" template="dialog">
+				<view type="html">com/originsys/eap/workflow/doc/view/signaturedialog.ftl</view>
+			</get>
+			<!-- 公文操作结束 -->
+			<get id="test" class="" name="正文测试">
+				<view type="html">com/originsys/eap/workflow/view/formdoc.ftl</view>
+			</get>
+			<data id="standingbookdownload" name="台账下载" class="com.originsys.eap.workflow.action.StandingBookDownload"/>
+			<get  id="grantlist" name="授权信息列表" class="">
+				<view type="html">com/originsys/eap/workflow/view/flowgrantlist.ftl</view>
+			</get>
+			<get  id="grantlistdata" name="授权信息列表数据" class="com.originsys.eap.workflow.action.FlowGrantList">
+				<view type="plain">com/originsys/eap/workflow/view/flowgrantlistjson.ftl</view>
+			</get>
+			<get id="flowlog" name="流程实例日志" class="com.originsys.eap.workflow.action.FlowLogList">
+				<view type="html">com/originsys/eap/workflow/view/flowloglist.ftl</view>
+			</get> 
+		</actions>
+
+</component>

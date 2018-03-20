@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eap2.net" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.eap2.net http://www.eap2.net/component-3.xsd "
+ name="系统公共服务" id="common" instance-scope="SINGLE"  version="2.14.1" icon="images/icon.png">
+	<description>系统公共服务</description>
+		<developer name="济南源创软件" url="" mail=""/>
+		<!-- 为生成静态HTML文件而编写开始 -->
+		<webpublish publish-list-class="">
+		    <!-- 用于替换内容及生成文件名 -->
+		    <pattern url="manager.ctemplate.export.dhtml\?template=([0-9a-zA-Z_\-]+)$" html-rule="static_contenttemplate/$1"/>
+		</webpublish>
+		<!-- 为生成静态HTML文件而编写结束 -->
+		<actions>
+		   <data id="getaudiolink" class="com.originsys.eap.common.audiomake.action.GetBDAudioLink" name="获取百度声音链接" />
+		    
+			<data id="hqpass" class="com.originsys.eap.common.action.Hqpass" name="获取密钥并创建" />
+			<data id="yhdr" class="com.originsys.eap.common.action.yhdr" name="图片上传"/>
+			<data name="上传" class="com.originsys.eap.util.FileUploadUtil" id="upload"/>
+
+			<data id="editor" class="com.originsys.eap.common.ewebeditor.Editor" name="获取编辑器配置"></data>
+			<data id="editorupload" class="com.originsys.eap.common.ewebeditor.EWebEditorUpload" name="编辑器上传"></data>
+			<data id="filebrowse" class="com.originsys.eap.common.ewebeditor.Browse" name="文件浏览"/>
+			<data id="newsvisit" class="com.originsys.eap.common.action.VisitNews" name="新闻访问次数"></data>
+			<data id="speedtest" class="com.originsys.eap.common.action.SpeedTest" name="性能测试"  description="使用方式：/common.speedtest.phtml?action=common.login.dhtml&amp;num=5" />
+			<get id="visitcount"  aliase="simple1" class="com.originsys.eap.common.action.VisitCount" name="简单访问统计" is-homepage="true">
+				<view id="visitcount" name="访问量统计" type="html">com/originsys/eap/common/view/visitcount.ftl</view>
+			</get>
+			<data id="staticvisit" class="com.originsys.eap.common.action.VisitCountStatic" name="访问量" description="静态页面上的动态统计数字"></data>
+			<data id="staticvisit1" class="com.originsys.eap.common.action.VisitCountStatic1" name="统计访问量" description="获取统计量"></data>
+			<get id="visitcount"  aliase="simple2" class="com.originsys.eap.common.action.VisitCount1" name="访问统计记录数据库" >
+				<view id="visitcount1" name="访问量统计" type="html">com/originsys/eap/common/view/visitcount1.ftl</view>
+			</get>
+			<get id="visitcounttj" class="com.originsys.eap.common.action.VisitCountTj" name="访问量统计展示" >
+				<view id="visitcounttj" name="访问量统计展示" type="html">com/originsys/eap/common/view/visitcounttj.ftl</view>
+			</get> 
+			<get id="visitcountdata" class="com.originsys.eap.common.action.VisitCountTj" name="访问量统计展示数据" >
+				<view id="visitcountdata" name="访问量统计展示数据" type="XML">com/originsys/eap/common/view/visitcountdata.ftl</view>
+			</get> 
+			<data id="annexfile" class="com.originsys.eap.common.action.AnnexFileUtil" name="根据附件编号取附件文件名"/>
+			<data id="download" class="com.originsys.eap.common.action.DownloadFile" name="文件下载"/>
+			<data id="upload" class="com.originsys.eap.common.action.UploadFile" name="文件上传(停用)"/>
+			<data id="uploadfile" class="com.originsys.eap.common.action.UploadAnnexFile" name="文件上传"/>
+			<data id="uploadimage" class="com.originsys.eap.common.action.UploadImage" name="图片上传"/>
+			<data id="dinclude" class="com.originsys.eap.common.action.DInclude" name="动态包含内容"/>
+			<get id="searchcity" class="com.originsys.eap.common.action.SearchCity" name="行政区选择窗口"   template="dialog">
+				<view type="plain">/com/originsys/eap/common/view/searckcity.ftl</view>
+			</get>
+			<get id="newsManage.list" class="com.originsys.eap.common.action.NewsManager" name="新闻管理">
+				<view type="html">com/originsys/eap/common/view/newsmanager.ftl</view>
+			</get>
+			<get id="newsmanage.dialog" class="com.originsys.eap.common.action.NewsManager" name="新闻栏目选择" template="dialog">
+				<view type="html">com/originsys/eap/common/view/newsmoduledialog.ftl</view>
+			</get>
+			<get id="news.manage" class="com.originsys.manager.site.ShowSite" name="新闻管理后台">
+				<view type="html">com/originsys/eap/common/view/newsmanage.ftl</view>
+			</get>
+			
+			
+			<get name="添加收藏" class="com.originsys.eap.common.action.AddFavorite" id="favorite.add">
+				<view type="plain">com/originsys/eap/common/view/addfavorite.ftl</view>
+			</get>
+			<get name="收藏夹列表" class="com.originsys.eap.common.action.FavoriteList" id="favorite.list">
+				<view type="html">com/originsys/eap/common/view/favoritelist.ftl</view>
+			</get>
+			<post name="删除收藏" class="com.originsys.eap.common.action.FavoriteDelete" id="favorite.delete" is-switch="true">
+			</post>
+			<get name="搜藏增加" class="com.originsys.eap.common.action.ForeAddFavorite" id="favorite.foreadd">
+				<view type="html">com/originsys/eap/common/view/foreaddfavorite.ftl</view>
+			</get>
+			<get id="stationinfo.block" class="com.originsys.eap.common.action.StationInfoBlock" name="站内消息首页" >
+				<view type="html">com/originsys/eap/common/view/stationinfoblock.ftl</view>
+			</get>
+			<get id="stationinfo.jsonblock" class="com.originsys.eap.common.action.StationInfoBlock" name="站内消息首页json" >
+				<view type="plain">com/originsys/eap/common/view/infoblockjson.ftl</view>
+			</get>
+			<get id="stationinfo.receivelist" class="com.originsys.eap.common.action.StationInfoReceiveList" name="已收消息列表" >
+				<view type="html">com/originsys/eap/common/view/receivelist.ftl</view>
+			</get>
+			<get id="stationinfo.deletelist" class="com.originsys.eap.common.action.StationInfoDeleteList" name="已删消息列表" >
+				<view type="html">com/originsys/eap/common/view/infodeletelist.ftl</view>
+			</get>
+			<get id="stationinfo.sendoutlist" class="com.originsys.eap.common.action.StationInfoSendOutList" name="已发消息列表" >
+				<view type="html">com/originsys/eap/common/view/sendoutlist.ftl</view>
+			</get>
+			<get id="stationinfo.draftlist" class="com.originsys.eap.common.action.StationInfoDraftList" name="站内消息草稿列表" >
+				<view type="html">com/originsys/eap/common/view/infodraftlist.ftl</view>
+			</get>
+			<get id="stationinfo.forinsert" class="com.originsys.eap.common.action.StationInfoForInsert" name="站内消息增加" >
+				<view type="html">com/originsys/eap/common/view/infoinsert.ftl</view>
+			</get>
+			<get id="stationinfo.save" class="com.originsys.eap.common.action.StationInfoSave" name="站内消息存草稿" >
+				<view type="html">com/originsys/eap/common/view/infosave.ftl</view>
+			</get>
+			<get id="stationinfo.sendout" class="com.originsys.eap.common.action.StationInfoSendOut" name="站内消息发送" >
+				<view type="html">com/originsys/eap/common/view/infosendout.ftl</view>
+			</get>
+			<get id="stationinfo.inboxdetail" class="com.originsys.eap.common.action.StationInfoInboxDetail" name="收件箱消息详细" >
+				<view type="html">com/originsys/eap/common/view/inboxdetail.ftl</view>
+			</get>
+			<get id="stationinfo.inboxdetail1" class="com.originsys.eap.common.action.StationInfoInboxDetail" name="已删消息详细" >
+				<view type="html">com/originsys/eap/common/view/inboxdetail1.ftl</view>
+			</get>
+			<get id="stationinfo.outboxdetail" class="com.originsys.eap.common.action.StationInfoOutboxDetail" name="发件箱消息详细" >
+				<view type="html">com/originsys/eap/common/view/outboxdetail.ftl</view>
+			</get>
+			<get id="stationinfo.outboxupdate" class="com.originsys.eap.common.action.StationInfoOutboxDetail" name="草稿箱消息修改" >
+				<view type="html">com/originsys/eap/common/view/outboxupdate.ftl</view>
+			</get>
+			<post id="stationinfo.outboxdelete" class="com.originsys.eap.common.action.StationInfoOutboxDelete" name="发件箱消息删除" is-switch="true" />
+			<post id="stationinfo.inboxdelete" class="com.originsys.eap.common.action.StationInfoInboxDelete" name="收件箱消息删除" is-switch="true" />
+			<post id="stationinfo.inboxupdatestate" class="com.originsys.eap.common.action.StationInfoInboxUpdateState" name="收件箱修改删除标记" is-switch="true" />
+			<get id="weather" class="com.originsys.eap.common.action.GoogleWeather" name="google天气预报" >
+				<view type="html">com/originsys/eap/common/view/cityweather.ftl</view>
+			</get>
+			<get id="weathersetting" class="com.originsys.eap.common.action.WeatherGetSetting" name="google天气预报设置" >
+				<view type="html">com/originsys/eap/common/view/cityweathersetting.ftl</view>
+			</get>
+			<post id="weathersavesettiong" class="com.originsys.eap.common.action.GoogleWeatherCitySelect" name="google天气预报设置保存" is-switch="true" />
+			<!-- 用户注册 开始 -->
+			<post id="login.doregister" class="com.originsys.eap.common.login.action.DoRegister" name="注册用户添加">
+				<view type="html">com/originsys/eap/common/login/view/doregister.ftl</view>
+			</post>
+			<!-- 信用青岛根据政务网用户登陆后返回数据增加用户，并根据用户注册等级赋予角色权限 -->
+			<data id="login.domemberadd" class="com.originsys.eap.common.login.action.DoMemberAdd" name="青岛政务网用户增加登录"></data>
+			<data id="login.domemberout" class="com.originsys.eap.common.login.action.DoMemberOut" name="青岛政务网用户注销"></data>
+			<!-- 用户注册ajax提交 -->
+			<data id="login.doregisterajax" class="com.originsys.eap.common.login.action.DoRegisterAjax" name="用户注册ajax提交"></data>
+			<!-- 用户角色申请 -->
+			<data id="login.doregisterrequest" class="com.originsys.eap.common.login.action.DoRegisterRequest" name="用户角色申请"></data>
+			<get id="login.register" class="com.originsys.eap.common.login.action.Register" name="用户注册"  filter="">
+				
+				<view type="html" name="默认(邮件地址注册)" id="defalut">com/originsys/eap/common/login/view/register.ftl</view>
+				<view type="html" name="带手机号码的注册" id="phone">com/originsys/eap/common/login/view/registerbyphone.ftl</view>
+				<view type="html" name="用户名注册" id="name">com/originsys/eap/common/login/view/register1.ftl</view>
+			</get>
+			<get id="registersuccess" class="com.originsys.eap.common.login.action.RegisterSuccess" name="用户注册成功" >
+				<view type="html">com/originsys/eap/common/login/view/registersuccess.ftl</view>		
+			</get>
+			<get id="login" class="com.originsys.eap.common.login.action.LoginBlock" name="用户登录"  filter="" cache-type="none" is-homepage="true">
+				<view type="html" id="defalut" name="默认">com/originsys/eap/common/login/view/loginblock.ftl</view>	
+				<view type="html" id="loginvideo" name="视频登录">com/originsys/eap/common/login/view/loginvideo.ftl</view>	
+				<view type="html" id="isukey" name="使用UK登录" client_type="mobile">com/originsys/eap/common/login/view/loginblock_ukey.ftl</view>	
+				<view id="login2012_6" name="独立窗体" type="html">com/originsys/eap/common/login/view/login2012_6.ftl</view>
+				<view id="sso_login" name="SSO登录视图" type="html">com/originsys/eap/common/login/view/sso_login.ftl</view>
+				<view type="html" id="ajax" name="ajax方式提交">com/originsys/eap/common/login/view/loginblock_ajax.ftl</view>
+			</get>
+
+			<get id="login.loginblock.dialog" class="com.originsys.eap.common.login.action.LoginBlock" name="用户登录窗口"  filter="" cache-type="none" is-homepage="true">
+				<view id="dialog_login" name="弹出窗口登录视图" type="html">com/originsys/eap/common/login/view/dialog_login.ftl</view>
+			</get>
+			<get name="验证码后台验证" class="com.originsys.eap.common.login.action.CheckCode" id="login.checkcode">
+				<view type="plain">com/originsys/eap/common/login/view/checkcode.ftl</view>
+			</get>
+			<data id="isused" class="com.originsys.eap.common.login.action.IsUsed" name="判断用户是否存在"/>  
+			<post id="login.login" class="com.originsys.eap.common.login.action.Login" name="用户登录提交"  filter="" is-switch="true"  is-audit="true"/>
+			<data id="loginajax" class="com.originsys.eap.common.login.action.LoginAjax" name="用户登录ajax提交"   is-audit="true"/>
+			<post id="login.loginget" class="com.originsys.eap.common.login.action.Login" name="用户登录get" is-switch="false" is-audit="true">
+				<view type="plain">com/originsys/eap/common/login/view/loginedget.ftl</view>
+			</post>
+			<post id="login.logout" class="com.originsys.eap.common.login.action.LogOut" name="注销"  is-switch="true"  is-audit="true"/>
+			<post id="login.activation" class="com.originsys.eap.common.login.action.ActivationUser" name="用户激活"  is-switch="true"/>
+			<data id="login.checkcodeimg" class="com.originsys.eap.common.login.action.CheckCodeImg" name="验证码生成"/>
+			<get id="login.passwordforfind" class="com.originsys.eap.common.login.action.PasswordForFind" name="密码找回-确认账号" >
+				<view type="html">com/originsys/eap/common/login/view/passwordforfind.ftl</view>		
+			</get>
+			<get id="login.passwordforfind1"  class="com.originsys.eap.common.login.action.PasswordForFind1" name="密码找回-安全验证" >
+				<view type="html">com/originsys/eap/common/login/view/passwordforfind1.ftl</view>		
+			</get>
+			<data id="login.mailchange" name="密码找回-发送验证码邮件" class="com.originsys.eap.common.login.action.MailChange"></data>
+			<data id="login.passwordfind" class="com.originsys.eap.common.login.action.PasswordFind" name="密码找回-验证验证码或密保问题是否正确 "></data>			
+			<get  id="login.forresetpassword" class="com.originsys.eap.common.login.action.ForResetPassword" name="密码找回-重置密码" >
+				<view type="html">com/originsys/eap/common/login/view/forresetpassword.ftl</view>		
+			</get>			
+			<post id="login.passwordreset" class="com.originsys.eap.common.login.action.ResetPassword" name="密码找回-重置密码（post）"  is-switch="true"/>	
+			<!-- 验证邮箱和登录名是否存在 -->
+			<get id="login.mailcheck" name="验证邮箱和登录名是否存在 " class="com.originsys.eap.common.login.action.MailCheck">
+			   <view type="plain">com/originsys/eap/common/login/view/mailcheck.ftl</view>
+			</get>
+			<!-- 结束 -->
+			
+
+            <get id="opendialog.block" class="" name="模式对话框" template="dialog">
+				<view type="html">com/originsys/eap/dialog.ftl</view>		
+			</get>
+
+            <!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
+            <get id="login.passwordcheck" name="验证密码" class="com.originsys.eap.common.login.action.PasswordCheck">
+                 <view id="login.passwordcheck" name="验证密码" type="plain">com/originsys/eap/common/login/view/passwordcheck.ftl</view>
+             </get>            
+			<get id="login.forchangepassword" class="com.originsys.eap.common.login.action.ForResetPassword" name="用户中心-预修改密码" >
+				<view type="html">com/originsys/eap/common/login/view/changepassword.ftl</view>		
+			</get>
+			<get id="login.changepassword" class="com.originsys.eap.common.login.action.ChangePassword" name="修改密码" >
+				<view type="plain">com/originsys/eap/common/login/view/changepasswordstate.ftl</view>		
+			</get>	
+			<get id="login.forsetquestion" class="com.originsys.eap.common.login.action.ForSetQuestion" name="密保设置" >
+				<view type="html">com/originsys/eap/common/login/view/forsetquestion.ftl</view>		
+			</get>
+			<get id="login.setquestion" class="com.originsys.eap.common.login.action.SetQuestion" name="密保设置" >
+				<view type="plain">com/originsys/eap/common/login/view/changepasswordstate.ftl</view>		
+			</get>			
+			<get id="login.myrolelist" class="com.originsys.eap.common.login.action.MyRoleList" name="我的角色列表" >
+				<view type="html">com/originsys/eap/common/login/view/myrolelist.ftl</view>		
+			</get>
+			<get id="login.formybasemessages" class="com.originsys.eap.common.login.action.ForMyBaseMessages" name="基本信息" >
+				<view type="html">com/originsys/eap/common/login/view/formybasemessages.ftl</view>		
+			</get>
+			<get id="login.updatemybasemessages" class="com.originsys.eap.common.login.action.MyBaseMessages" name="基本信息修改" >
+				<view type="plain">com/originsys/eap/common/login/view/updatebasemessages.ftl</view>		
+			</get>
+			<data id="autogetkeyword" class="com.originsys.eap.common.action.AutoGetKeyword" name="自动获取关键字" />
+
+			<get id="login.sso" class="com.originsys.eap.common.login.action.SSOLogin" name="单点登录" >
+				<view type="html">com/originsys/eap/common/login/view/sso.ftl</view>		
+			</get>
+			<get id="organ.forinsert" class="" name="用户组织机构增加">
+				<view type="html">com/originsys/eap/common/login/view/memberorganforinsert.ftl</view>
+			</get>
+			<get id="organ.insert" class="com.originsys.eap.common.login.action.MemberOrganSave" name="用户组织机构保存">
+				<view type="plain">com/originsys/eap/common/login/view/memberorgansave.ftl</view>
+			</get>
+			<get id="organ.forupdate" class="com.originsys.eap.common.login.action.MemberOrganForUpdate" name="用户组织机构修改">
+				<view type="html">com/originsys/eap/common/login/view/memberorganforupdate.ftl</view>
+			</get>
+			<get id="organ.update" class="com.originsys.eap.common.login.action.MemberOrganUpdate" name="用户组织机构修改保存">
+				<view type="plain">com/originsys/eap/common/login/view/memberorgansave.ftl</view>
+			</get>
+			<get id="login.requestlist" class="com.originsys.eap.common.login.action.RoleRequestList" name="可申请角色列表" >
+				<view type="html">com/originsys/eap/common/login/view/rolerequestlist.ftl</view>		
+			</get>
+			<get id="login.requestblock" class="com.originsys.eap.common.login.action.RoleRequestBlock" name="申请角色" >
+				<view type="html">com/originsys/eap/common/login/view/rolerequestblock.ftl</view>		
+			</get>
+			<get id="login.requestsave" class="com.originsys.eap.common.login.action.RoleRequestSave" name="申请角色保存" >
+				<view type="html">com/originsys/eap/common/login/view/rolerequestsave.ftl</view>		
+			</get>
+			<data id="login.requestsavedata" class="com.originsys.eap.common.login.action.RoleRequestSaveData" name="申请角色异步保存"></data>
+			<get id="login.myroleapplicationlist" class="com.originsys.eap.common.login.action.MyRoleApplicationList" name="我的角色申请">
+				<view type="html">com/originsys/eap/common/login/view/myroleapplicationlist.ftl</view>		
+			</get>
+			<get id="login.myroleapplicationdetail" class="com.originsys.eap.common.login.action.MyRoleApplicationDetail" name="我的角色申请详细">
+			  <view type="html">com/originsys/eap/common/login/view/myroleapplicationdetail.ftl</view>
+			</get>
+			<get id="login.myaccount" class="com.originsys.eap.common.login.action.MyAccount" name="用户中心" >
+				<view type="html">com/originsys/eap/common/login/view/myaccount.ftl</view>		
+			</get>
+			<!-- 用户注册结束 -->	
+			
+			<!-- 组织机构开始 -->
+			<get id="company.editlist" class="com.originsys.eap.common.organization.action.CompanyPage" name="公司编辑列表">
+				<view type="html">com/originsys/eap/common/organization/view/companyeditlist.ftl</view>
+			</get>
+			<get id="company.listjson" class="com.originsys.eap.common.organization.action.CompanyEditList" name="公司编辑列表json">
+				<view type="plain">com/originsys/eap/common/organization/view/companyeditlistjson.ftl</view>
+			</get>
+			<get id="company.dialog" class="com.originsys.eap.common.organization.action.CompanyEditList" name="公司列表窗口">
+				<view type="html">com/originsys/eap/common/organization/view/companydialog.ftl</view>
+			</get>
+			<get id="company.forinsert" class="com.originsys.eap.common.organization.action.CompanyForInsert" name="公司预增加">
+				<view type="html">com/originsys/eap/common/organization/view/companyforinsert.ftl</view>
+			</get>
+			<post id="company.insert" class="com.originsys.eap.common.organization.action.CompanyInsert" name="公司增加" is-switch="true" />
+			<get id="company.forupdate" class="com.originsys.eap.common.organization.action.CompanyForUpdate" name="公司预修改">
+				<view type="html">com/originsys/eap/common/organization/view/companyforupdate.ftl</view>
+			</get>
+			<post id="company.update" class="com.originsys.eap.common.organization.action.CompanyUpdate" name="公司修改" is-switch="true"></post>
+			<post id="company.delete" class="com.originsys.eap.common.organization.action.CompanyDelete" name="公司删除" is-switch="true"></post>
+			<get id="department.editlist" class="com.originsys.eap.common.organization.action.DepartmentEditList1" name="部门编辑列表传参">
+				<view type="html">com/originsys/eap/common/organization/view/departmenteditlist.ftl</view>
+			</get>
+			<get id="department.listjson" class="com.originsys.eap.common.organization.action.DepartmentEditList" name="部门编辑列表json全部">
+				<view type="plain">com/originsys/eap/common/organization/view/departmenteditlistjson.ftl</view>
+			</get>
+			<get id="department.dialog" class="com.originsys.eap.common.organization.action.DepartmentEditList1" name="部门列表窗口-单选">
+				<view type="html" id="ztree" name="ztree机构单选">com/originsys/eap/common/organization/view/departmentdialog.ftl</view>
+				<view type="html" id="treeview" name="TreeView机构单选">com/originsys/eap/common/organization/view/departmentdialog_treeview.ftl</view>
+			</get>
+			<get id="department.multidialog" class="com.originsys.eap.common.organization.action.DepartmentEditList1" name="部门列表窗口-多选">
+				<view type="html" id="dialog1" name="树形子节点全选">com/originsys/eap/common/organization/view/departmentmultidialog.ftl</view>
+				<view type="html" id="dialog2" name="父节点选中">com/originsys/eap/common/organization/view/departmentmultidialog2.ftl</view>
+			</get>
+			<get id="department3.listjson" class="com.originsys.eap.common.organization.action.DepartmentList3" name="部门列表json可查非指定部门类型ztree">
+				<view type="plain">com/originsys/eap/common/organization/view/departmentlistjson.ftl</view>
+			</get>
+			<data id="department.forupdate" class="com.originsys.eap.common.organization.action.DepartmentForUpdate" name="部门预修改" />
+			<data id="department.insert" class="com.originsys.eap.common.organization.action.DepartmentInsert" name="部门增加" />
+			<data id="department.update" class="com.originsys.eap.common.organization.action.DepartmentUpdate" name="部门修改" />
+			<data id="department.delete" class="com.originsys.eap.common.organization.action.DepartmentDelete" name="部门删除" />
+			<get id="department.memberlist" class="" name="部门用户审核列表">
+				<view type="html">com/originsys/eap/common/organization/view/departmentmemberlist.ftl</view>
+			</get>
+			<get id="department.memberlistjson" class="com.originsys.eap.common.organization.action.DepartmentMemberList" name="部门用户审核列表json">
+				<view type="plain">com/originsys/eap/common/organization/view/departmentmemberlistjson.ftl</view>
+			</get>
+			<post id="department.membercheck" class="com.originsys.eap.common.organization.action.DepartmentMemberCheck" name="部门用户审核" is-switch="true"></post>
+			<get id="department.membereditlist" class="com.originsys.eap.common.organization.action.MemberListByDepartmentId" name="部门对应用户列表">
+				<view type="html">com/originsys/eap/common/organization/view/memberlistbydepartmentid.ftl</view>
+			</get>
+			<get id="department.membereditlistjson" class="com.originsys.eap.common.organization.action.MemberListByDepartmentId" name="部门对应用户列表json">
+				<view type="plain">com/originsys/eap/common/organization/view/memberlistbydepartmentidjson.ftl</view>
+			</get>
+			<data id="department.memberinsert" class="com.originsys.eap.common.organization.action.DepartmentMemberInsert" name="部门对应用户增加" />
+			<data id="department.memberdelete" class="com.originsys.eap.common.organization.action.DepartmentMemberDelete" name="部门对应用户删除" />
+			<data id="department.statechange" class="com.originsys.eap.common.organization.action.DepartmentMemberStateChange" name="修改部门用户状态" />
+			
+			<!-- 没有用到的地方 -->
+			<get id="department2.listjson" class="com.originsys.eap.common.organization.action.DepartmentList2" name="部门类型部门列表json2">
+				<view type="plain">com/originsys/eap/common/organization/view/departmentlistjson.ftl</view>
+			</get>
+			<get id="departmentedit2.listjson" class="com.originsys.eap.common.organization.action.DepartmentEditList2" name="部门编辑列表json有数据权限">
+				<view type="plain">com/originsys/eap/common/organization/view/departmentlistjson.ftl</view>
+			</get>
+			<!-- foodsafe中用到的 -->
+			<get id="department1.listjson" class="com.originsys.eap.common.organization.action.DepartmentList1" name="机构类型部门列表json1">
+				<view type="plain">com/originsys/eap/common/organization/view/departmentlistjson.ftl</view>
+			</get>
+			<get id="department4.listjson" class="com.originsys.eap.common.organization.action.DepartmentList4" name="当前部门及其子部门列表json">
+				<view type="plain">com/originsys/eap/common/organization/view/departmentlistjson.ftl</view>
+			</get>
+			<get id="department5.listjson" class="com.originsys.eap.common.organization.action.DepartmentList5" name="部门列表json可查指定类型部门">
+				<view type="plain">com/originsys/eap/common/organization/view/departmentlistjson.ftl</view>
+			</get>
+			<!-- foodsafe中用到的 -->
+			
+			<get id="department.forchecklist" class="" name="部门用户审核列表">
+				<view type="html">com/originsys/eap/common/organization/view/departmentuserchecklist.ftl</view>
+			</get>
+			<get id="department.forchecklistjson" class="com.originsys.eap.common.organization.action.ForOrganUserCheckList" name="部门用户审核列表json">
+				<view type="plain">com/originsys/eap/common/organization/view/departmentuserchecklistjson.ftl</view>
+			</get>
+			<!-- 行政区域管理 -->
+			<get id="region" class="com.originsys.eap.common.action.RegionDialog" name="行政区选择窗口"   template="dialog">
+				<view type="html">/com/originsys/eap/common/view/regiondialog.ftl</view>
+			</get>
+			<get id="regionmanage.editlist" class="com.originsys.eap.common.organization.action.RegionEditList" name="行政区域管理列表">
+				<view type="html">com/originsys/eap/common/organization/view/regioneditlist.ftl</view>
+			</get>
+			<get id="regionmanage.listjson" class="com.originsys.eap.common.organization.action.RegionEditListJson" name="部门编辑列表json全部">
+				<view type="plain">com/originsys/eap/common/organization/view/regioneditlistjson.ftl</view>
+			</get>
+			<data id="regionmanage.insert" name="添加行政区域" class="com.originsys.eap.common.organization.action.RegionInsert" />
+			<data id="regionmanage.update" name="修改行政区域" class="com.originsys.eap.common.organization.action.RegionUpdate"/>
+			<data id="regionmanage.delete" name="删除行政区域"  class="com.originsys.eap.common.organization.action.RegionDelete"/>
+			<!-- 组织机构结束 -->
+			
+			<!-- 访问统计开始 -->
+			<get id="visitnum" class="" name="访问统计版权页">
+				<view type="html">com/originsys/eap/visitcount/view/visitnum.ftl</view>
+			</get>
+			<get id="visit.sitegroupblock" class="com.originsys.eap.visitcount.action.SiteGroupBlock" name="站点群总访问排名">
+				<view type="html">com/originsys/eap/visitcount/view/sitegroupblock.ftl</view>
+			</get>
+			<get id="visit.yearblock" class="com.originsys.eap.visitcount.action.YearVisitBlock" name="年度访问统计首页">
+				<view type="html">com/originsys/eap/visitcount/view/yearvisit
+				block.ftl</view>
+			</get> 
+			<get id="visit.monthblock" class="com.originsys.eap.visitcount.action.MonthVisitBlock" name="月份访问统计首页">
+				<view type="html">com/originsys/eap/visitcount/view/monthvisitblock.ftl</view>
+			</get>
+			<get id="visit.dayblock" class="com.originsys.eap.visitcount.action.DayVisitBlock" name="日访问统计首页">
+				<view type="html">com/originsys/eap/visitcount/view/dayvisitblock.ftl</view>
+			</get>  
+			<get id="visit.moduleblock" class="com.originsys.eap.visitcount.action.ModuleVisitBlock" name="栏目访问排名">
+				<view type="html">com/originsys/eap/visitcount/view/modulevisitblock.ftl</view>
+			</get>
+			<get id="visit.externallink" class="com.originsys.eap.visitcount.action.ExternalLinksVisit" name="外部链接访问排名">
+				<view type="html">com/originsys/eap/visitcount/view/externallinksvisitblock.ftl</view>
+			</get>
+			<data id="visit.externallinkexcel" class="com.originsys.eap.visitcount.action.ExternalLinksExcel" name="外部链接访问排名导出excle"/>
+			<!-- 访问统计结束 -->
+			<get id="departmenttype.xml" class="com.originsys.eap.common.organization.action.DepartmentTypeXml" name="部门类型xml">
+				<view type="XML">com/originsys/eap/common/organization/view/departmenttypexml.ftl</view>
+			</get>
+			<get id="departmenttype.json" class="com.originsys.eap.common.organization.action.DepartmentTypeXml" name="部门类型json">
+				<view type="plain">com/originsys/eap/common/organization/view/departmenttypejson.ftl</view>
+			</get>
+			<get id="departmenttype.list" class="" name="部门类型列表">
+				<view type="html">com/originsys/eap/common/organization/view/departmenttypelist.ftl</view>
+			</get>
+			<data id="departmenttype.insert" class="com.originsys.eap.common.organization.action.DepartmentTypeInsert" name="部门类型增加"/>
+			<data id="departmenttype.update" class="com.originsys.eap.common.organization.action.DepartmentTypeUpdate" name="部门类型修改"/>
+			<data id="departmenttype.delete" class="com.originsys.eap.common.organization.action.DepartmentTypeDelete" name="部门类型删除"/>
+			
+			
+			
+			<get id="provinceList" class="com.originsys.eap.common.organization.action.ProvinceList" name="省份列表">
+				<view type="html">com/originsys/eap/common/organization/view/address.ftl</view>
+			</get>
+			<get id="cityList" class="com.originsys.eap.common.organization.action.ProvinceList" name="市列表">
+				<view type="plain">com/originsys/eap/common/organization/view/addressinfo.ftl</view>
+			</get>
+			<get id="department.list" class="com.originsys.eap.common.organization.action.DepartmentEditList1" name="青岛用户选择所属机构列表页">
+				<view type="html">com/originsys/eap/common/organization/view/departmentlist1.ftl</view>
+			</get>
+			<data id="department.saveuserorgan" class="com.originsys.eap.common.organization.action.SaveDepartmentMember" name="保存用户选择的所属机构"/>
+			<!-- 工作日历相关开始 -->
+			<get id="workcalenderlist" class="com.originsys.eap.common.action.WorkCalenderList" name=" 工作日历年列表">
+				<view type="html" >com/originsys/eap/common/view/workcalenderlist.ftl</view>
+			</get>
+			<get id="workcalendersetting" class="com.originsys.eap.common.action.WorkCalenderDetail" name=" 工作日历设置">
+				<view type="html" >com/originsys/eap/common/view/workcalendersetting.ftl</view>
+			</get>
+			
+			<!-- Ip网络限制记录操作 -->
+			<!--   首页         -->
+			<get id="network.networkSegmentlist" name="网段列表"  class="">
+				<view id="network.networkSegmentlist" name="网段列表" type="html">com/originsys/eap/common/network/view/networkSegmentlist.ftl</view>
+			</get>
+			<!--   首页数据    -->
+			<get id="network.networkSegmentlistdata" name="网段列表数据"  class="com.originsys.eap.common.network.action.NetworkSegmentList">
+				<view id="network.networkSegmentlistdata" name="网段列表数据" type="plain">com/originsys/eap/common/network/view/networkSegmentlistdata.ftl</view>
+			</get>	
+			<!--   增加操作    -->
+			<data id="network.networkSegmentadd" name="网段增加" class="com.originsys.eap.common.network.action.NetworkSegmentAdd"/>
+			<!--   查看详细(更新操作用)    -->
+			<!--  get id="network.networkSegmentmodify" name="网段修改"  class="com.originsys.eap.common.network.action.NetworkSegmentDetail">
+				<view id="network.networkSegmentmodify" name="网段修改" type="html">com/originsys/eap/common/network/view/networkSegmentmodify.ftl</view>
+			</get-->
+			<data id="network.networkSegmentmodify" name="网段预修改"  class="com.originsys.eap.common.network.action.NetworkSegmentDetail"/>
+				
+			<!--   更新操作用    -->
+			<data id="network.networkSegmentupdate" name="网段修改保存" class="com.originsys.eap.common.network.action.NetworkSegmentUpdate"/>
+			<data id="network.networkSegmentStateupdate" name="网段状态修改" class="com.originsys.eap.common.network.action.NetworkSegmentStateUpdate"/>
+			<!--   删除操作    -->
+			<data id="network.networkSegmentdelete" name="网段删除" class="com.originsys.eap.common.network.action.NetworkSegmentDelete"/>
+			<!--   首页         -->
+			<get id="network.networkSegmentIplist" name="IP记录列表"  class="com.originsys.eap.common.network.action.SegmentIpForList">
+				<view id="network.networkSegmentIplist" name="IP记录列表" type="html">com/originsys/eap/common/network/view/networkSegmentIplist.ftl</view>
+			</get>
+			<!--   首页数据    -->
+			<get id="network.networkSegmentIplistdata" name="IP记录列表数据"  class="com.originsys.eap.common.network.action.NetworkSegmentIpList">
+				<view id="network.networkSegmentIplistdata" name="IP记录列表数据" type="plain">com/originsys/eap/common/network/view/networkSegmentIplistdata.ftl</view>
+			</get>	
+			<!--   增加操作    -->
+			<data id="network.networkSegmentIpadd" name="IP记录增加" class="com.originsys.eap.common.network.action.NetworkSegmentIpAdd"/>
+			<!--   查看详细(更新操作用)    -->
+			<get id="network.networkSegmentIpmodify" name="IP记录修改"  class="com.originsys.eap.common.network.action.NetworkSegmentIpDetail">
+				<view id="network.networkSegmentIpmodify" name="IP记录修改" type="html">com/originsys/eap/common/network/view/networkSegmentIpmodify.ftl</view>
+			</get>
+			<!--   更新操作用    -->
+			<data id="network.networkSegmentIpupdate" name="IP记录修改保存" class="com.originsys.eap.common.network.action.NetworkSegmentIpUpdate"/>
+			<!--   删除操作    -->
+			<data id="network.networkSegmentIpdelete" name="IP记录删除" class="com.originsys.eap.common.network.action.NetworkSegmentIpDelete"/>
+			
+			<data id="multi.uploadimage" class="com.originsys.eap.common.action.UploadMultiImage" name="图片批量上传"/>
+			<data id="anneximage.delete" class="com.originsys.eap.common.action.AnnexImageDelete" name="相关图片删除"/>
+			<data id="anneximage.list" class="com.originsys.eap.common.action.AnnexImageList" name="相关图片列表"/>
+			<!-- 敏感词管理 -->
+			
+			<data id="sensitivewords.update" class="com.originsys.eap.common.action.SensitiveWordsUpdate" name="敏感词词库修改"/>	
+			<get id="sensitivewords.modify" class="com.originsys.eap.common.action.SensitiveWordsModify" name="敏感词词库管理">
+				<view type="html" >com/originsys/eap/common/view/sensitivewordsmodify.ftl</view>
+			</get>
+			<get id="task.list" name="统一任务列表" class="">
+				<view type="html" >com/originsys/eap/common/view/tasklist.ftl</view>
+			</get>
+			<get id="task.listdata" name="统一任务列表数据" class="com.originsys.eap.common.action.TaskList">
+				<view type="plain" >com/originsys/eap/common/view/tasklistdata.ftl</view>
+			</get>
+			
+			<get id="organtype.list" class="com.originsys.eap.common.organization.action.OrganTypeList" name="机构类型列表" template="dialog">
+				<view type="html">com/originsys/eap/common/organization/view/organtypelist.ftl</view>
+			</get>
+			<data id="wx.auth" class="com.originsys.eap.common.wx.action.WxOpenerAuth" name="微信开发者身份验证"/>
+			<post id="binding.wxuser" class="com.originsys.eap.common.wx.action.BindingWxUser" name="绑定微信用户" is-switch="true"></post>
+			<data id="wx.createmenu" class="com.originsys.eap.common.wx.action.CreateMenu" name="微信创建自定义菜单"/>
+			<post id="auth.test" class="com.originsys.eap.common.wx.action.AuthTest" name="微信授权测试" is-switch="true"></post>
+			<get id="wxmenu.list" class="com.originsys.eap.common.wx.action.WxMenuList" name="微信菜单列表" is-homepage="true">
+				<view type="html">com/originsys/eap/common/wx/view/wxmenulist.ftl</view>
+			</get>
+			<get id="wxmenu.foradd" class="com.originsys.eap.common.wx.action.WxMenuForAdd" name="增加微信菜单">
+				<view type="html">com/originsys/eap/common/wx/view/wxmenuadd.ftl</view>
+			</get>
+			<data id="wxmenu.add" class="com.originsys.eap.common.wx.action.WxMenuAdd" name="增加微信菜单保存" />
+			<get id="wxmenu.forupdate" class="com.originsys.eap.common.wx.action.WxMenuForUpdate" name="修改微信菜单">
+				<view type="html">com/originsys/eap/common/wx/view/wxmenuupdate.ftl</view>
+			</get>
+			<get id="choice" class="" name="选择人员">
+				<view type="html">com/originsys/eap/dbrw/util/choice.ftl</view>
+			</get>
+			<data id="rwInsert" class="com.originsys.eap.dbrw.util.RwInsert" name="任务保存" />
+			<data id="wxmenu.update" class="com.originsys.eap.common.wx.action.WxMenuUpdate" name="修改微信菜单保存" />
+			<data name="微信菜单删除" class="com.originsys.eap.common.wx.action.WxMenuDelete" id="wxmenu.delete"/>
+		    <!-- 用户中心模板 -->
+		    <get id="modelcenter" name="用户中心模板" class="">
+		      <view id="modelcenter" name="用户中心模板" type="html">com/originsys/eap/common/login/view/modelcenter.ftl</view>
+		    </get>
+		    <!-- 站内消息开始$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
+		    <!-- 发消息（未完成） -->
+		    <get id="infostation.addinfostation" name="发消息" class="com.originsys.eap.infostation.action.AddInfostation">
+		       <view id="infostation.addinfostation" name="发消息" type="html">com/originsys/eap/infostation/view/addinfostation.ftl</view>
+		    </get>
+		    <!-- 收件箱 -->
+		    <get id="infostation.receiveinfo" name="收件箱" class="com.originsys.eap.infostation.action.ReceiveInfo">
+		     <view type="html">com/originsys/eap/infostation/view/receiveinfo.ftl</view>
+		    </get>
+		    <!-- 收件详细 -->
+		    <get id="infostation.infodetail" name="信息详细" class="com.originsys.eap.infostation.action.InfoDetail">
+		       <view type="html">com/originsys/eap/infostation/view/infodetail.ftl</view>
+		    </get>
+		    <!-- 发件详细 -->
+		    <get id="infostation.outinfodetail" name="发件详细" class="com.originsys.eap.infostation.action.OutInfoDetail">
+		      <view type="html">com/originsys/eap/infostation/view/outinfodetail.ftl</view>
+		    </get>
+		    <!-- 放入回收站 -->
+		    <data id="infostation.infodelete" name="放入回收站" class="com.originsys.eap.infostation.action.InfoDelete"></data>
+		    <!-- 从回收站取出 -->
+		    <data id="infostation.inforestore" name="还原" class="com.originsys.eap.infostation.action.InfoRestore"></data>
+		    <!-- 草稿箱，发件箱彻底删除 -->
+		    <data id="infostation.outinfodelete" name="彻底删除" class="com.originsys.eap.infostation.action.OutInfoDelete"></data>
+		    <!-- 回收站彻底删除 -->
+		    <data id="infostation.ininfodelete" name="回收站彻底删除" class="com.originsys.eap.infostation.action.InInfoDelete"></data>
+		    <!-- 发件箱 -->
+		    <get id="infostation.sendinfo" name="发件箱" class="com.originsys.eap.infostation.action.SendInfo">
+		      <view type="html">com/originsys/eap/infostation/view/sendinfo.ftl</view>
+		    </get>
+		    <!-- 草稿箱 -->
+		    <get id="infostation.readyinfo" name="草稿箱" class="com.originsys.eap.infostation.action.ReadyInfo">
+		      <view type="html">com/originsys/eap/infostation/view/readyinfo.ftl</view>
+		    </get>
+		    <!-- 继续发送 -->
+		    <get id="infostation.continuesend" name="继续发送" class="com.originsys.eap.infostation.action.OutInfoDetail">
+		      <view type="html">com/originsys/eap/infostation/view/continuesend.ftl</view>
+		    </get>
+		    <!-- 用户列表 -->
+		    <get id="infostation.dialog" name="用户列表" class="com.originsys.eap.infostation.action.Dialog">
+		     <view type="html">com/originsys/eap/infostation/view/dialog.ftl</view>
+		    </get>
+		    <!-- 回收站 -->
+		    <get id="infostation.circleinfo" name="回收站" class="com.originsys.eap.infostation.action.CircleInfo">
+		      <view type="html">com/originsys/eap/infostation/view/circleinfo.ftl</view>
+		    </get>
+		    <get id="infostation.save" class="com.originsys.eap.infostation.action.InfoSave" name="站内消息存草稿箱" >
+				<view type="html">com/originsys/eap/infostation/view/infosave.ftl</view>
+			</get>
+			<get id="infostation.sendout" class="com.originsys.eap.infostation.action.InfoSendout" name="站内消息发送" >
+				<view type="html">com/originsys/eap/infostation/view/infosendout.ftl</view>
+			</get>
+		    <!-- 站内消息结束$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
+		    <get id="tel" name="信用山东用户中心" class="">
+		      <view type="html">com/originsys/eap/common/login/view/tel.ftl</view>
+		    </get>
+		    
+		     <get id="ydyltel" name="一带一路用户中心" class="">
+		      <view type="html">com/originsys/eap/common/login/view/ydyltel.ftl</view>
+		    </get>
+		    <get id="qyztel" name="企业债用户中心" class="">
+		      <view type="html">com/originsys/eap/common/login/view/qyztel.ftl</view>
+		    </get>
+		    <!-- 微信发送消息开始 -->
+		    <get id="ycWxSendinfolist" name="微信发送消息列表"  class="" is-homepage="true">
+				<view id="ycWxSendinfolist" type="html">com/originsys/eap/common/wx/view/ycWxSendinfolist.ftl</view>
+			</get>
+			<get id="ycWxSendinfolistdata" name="微信发送消息列表数据"  class="com.originsys.eap.common.wx.action.YcWxSendinfoList">
+				<view id="ycWxSendinfolistdata" type="plain">com/originsys/eap/common/wx/view/ycWxSendinfolistdata.ftl</view>
+			</get>
+			<get id="ycWxSendinfoforadd" name="微信发送消息增加"  class="">
+				<view id="ycWxSendinfoforadd" type="html">com/originsys/eap/common/wx/view/ycWxSendinfoforadd.ftl</view>
+			</get>
+			<get id="ycWxSendinfodetail" name="微信发送消息详细"  class="com.originsys.eap.common.wx.action.YcWxSendinfoDetail">
+				<view id="ycWxSendinfodetail" type="html">com/originsys/eap/common/wx/view/ycWxSendinfodetail.ftl</view>
+			</get>
+			<data id="ycWxSendinfoadd" name="微信发送消息增加" class="com.originsys.eap.common.wx.action.YcWxSendinfoAdd"/>
+			<get id="ycWxSendinfomodify" name="微信发送消息修改"  class="com.originsys.eap.common.wx.action.YcWxSendinfoDetail">
+				<view id="ycWxSendinfomodify" type="html">com/originsys/eap/common/wx/view/ycWxSendinfomodify.ftl</view>
+			</get>
+			<data id="ycWxSendinfoupdate" name="微信发送消息修改保存" class="com.originsys.eap.common.wx.action.YcWxSendinfoUpdate"/>
+			<data id="ycWxSendinfodelete" name="微信发送消息删除" class="com.originsys.eap.common.wx.action.YcWxSendinfoDelete"/>
+			<get id="ycWxSendinfoNewslistdata" name="微信消息新闻列表数据"  class="com.originsys.eap.common.wx.action.YcWxSendinfoNewsList">
+				<view id="ycWxSendinfoNewslistdata" name="微信消息新闻列表数据" type="plain">com/originsys/eap/common/wx/view/ycWxSendinfoNewslistdata.ftl</view>
+			</get>
+			<get id="ycWxSendinfoNewsdetail" name="微信消息新闻详细"  class="com.originsys.eap.common.wx.action.YcWxSendinfoNewsDetail">
+				<view id="ycWxSendinfoNewsdetail" name="微信消息新闻详细" type="html">com/originsys/eap/common/wx/view/ycWxSendinfoNewsdetail.ftl</view>
+			</get>
+			<get id="ycWxSendinfoNewsinsert" name="微信消息新闻增加"  class="">
+				<view id="ycWxSendinfoNewsmodify" name="微信消息新闻增加" type="html">com/originsys/eap/common/wx/view/ycWxSendinfoNewsmodify.ftl</view>
+			</get>
+			<get id="ycWxSendinfoNewsmodify" name="微信消息新闻修改"  class="com.originsys.eap.common.wx.action.YcWxSendinfoNewsDetail">
+				<view id="ycWxSendinfoNewsmodify" name="微信消息新闻修改" type="html">com/originsys/eap/common/wx/view/ycWxSendinfoNewsmodify.ftl</view>
+			</get>
+			<data id="ycWxSendinfoNewsadd" name="微信消息新闻增加保存" class="com.originsys.eap.common.wx.action.YcWxSendinfoNewsAdd"/>
+			<data id="ycWxSendinfoNewsupdate" name="微信消息新闻修改保存" class="com.originsys.eap.common.wx.action.YcWxSendinfoNewsUpdate"/>
+			<data id="ycWxSendinfoNewsdelete" name="微信消息新闻删除" class="com.originsys.eap.common.wx.action.YcWxSendinfoNewsDelete"/>
+			<!-- 微信发送消息结束 -->
+			<get id="wx.userlist" name="微信用户窗口" class="">
+				<view type="html">com/originsys/eap/common/wx/view/wxuserlist.ftl</view>
+			</get>
+			<get id="wx.getUserlist1" name="普通微信用户窗口" class="">
+				<view type="html">com/originsys/eap/common/wx/view/wxuserlistxx1.ftl</view>
+			</get>
+			<get id="wx.userlistdata" name="微信用户列表数据" class="com.originsys.eap.common.wx.action.WxUserList">
+				<view type="plain">com/originsys/eap/common/wx/view/wxuserlistdata.ftl</view>
+			</get>
+			<get id="wx.userlist1" name="微信用户列表" class="" is-homepage="true">
+				<view type="html">com/originsys/eap/common/wx/view/wxuserlist1.ftl</view>
+			</get>
+			<get id="wx.getUserlist" name="微信用户信息列表" class="" is-homepage="true">
+				<view type="html">com/originsys/eap/common/wx/view/wxuserlistxx.ftl</view>
+			</get>
+			<get id="wx.Userlistjson" name="获取微信用户信息数据" class="com.originsys.eap.common.wx.action.WxUser">
+				<view type="plain">com/originsys/eap/common/wx/view/wxuserlistxxdata.ftl</view>
+			</get>
+			<get id="wx.Userlistjson1" name="同步微信用户信息数据" class="com.originsys.eap.common.wx.action.WxUser1">
+				<view type="plain">com/originsys/eap/common/wx/view/wxuserlistxxdata.ftl</view>
+			</get>
+			<get id="user.radiodialog1" class="com.originsys.eap.common.wx.action.UserDialog" name="微信用户单选窗口"  >
+				<view type="html">com/originsys/eap/common/wx/view/userradiodialoginit.ftl</view>		
+			</get>
+			<get id="user.listjson" class="com.originsys.eap.common.wx.action.UserList" name="微信用户列表json"  >
+				<view type="plain">com/originsys/eap/common/wx/view/userlist_jqgrid.ftl</view>		
+			</get>
+			<data id="wx.BdUser" name="微信绑定用户" class="com.originsys.eap.common.wx.action.BdUser"/>
+			<data id="wx.sendinfo" name="微信发送消息" class="com.originsys.eap.common.wx.action.YcWxSendinfoSend"/>
+			<get id="wx.config" name="微信配置" class="com.originsys.eap.common.wx.action.WxConfig" is-homepage="true">
+				<view type="html">com/originsys/eap/common/wx/view/wxconfig.ftl</view>
+			</get>
+			<data id="wx.configupdate" name="微信配置修改" class="com.originsys.eap.common.wx.action.WxConfigUpdate" />
+			<data id="wx.unbinduser" name="微信用户解除绑定" class="com.originsys.eap.common.wx.action.WxUnbindUser"/>
+			<get id="wxlogin" class="com.originsys.eap.common.login.action.LoginBlock" name="微信用户登录">
+				<view type="html" id="loginblockwx" name="微信登录视图" client_type="mobile">com/originsys/eap/common/login/view/loginblockwx.ftl</view>		
+			</get>
+			<data id="wx.buser" name="微信登录时绑定" class="com.originsys.eap.common.wx.action.WxLoginBindingUser"/>
+			<get id="wx.forpay" name="微信js接口测试" class="com.originsys.eap.common.wx.action.ForJsSignature">
+				<view type="html">com/originsys/eap/common/wx/view/jspaytest.ftl</view>	
+			</get>
+			<get id="wx.pay1" name="微信支付第一步" class="com.originsys.eap.common.wx.action.PayTest1">
+				<view type="html">com/originsys/eap/common/wx/view/paytest1.ftl</view>	
+			</get>
+			<get id="usercore" name="用户中心" class="com.originsys.eap.common.login.action.UserCore">
+				<view type="html">com/originsys/eap/common/wx/view/usercore.ftl</view>	
+			</get>
+		</actions>
+		<datasources>
+		  <datasource init-sql="com./originsys/eap/common/conf/init.sql" database-type="mysql">
+			<sqlmap>com/originsys/eap/conf/mysql_baseSql.xml</sqlmap>
+			<sqlmap>com/originsys/eap/conf/core.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/pointSqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/common_sqlmap.xml</sqlmap>	
+			<sqlmap>com/originsys/eap/common/conf/stationIinformation_sqlmap.xml</sqlmap>	
+			<sqlmap>com/originsys/eap/common/conf/organization_sqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/annexFileSqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/network_sqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/userSqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/roleSqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/workflow_sqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/sequenceSqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/workCalendarSqlmap.xml</sqlmap>
+		 	<sqlmap>com/originsys/eap/common/conf/wx_sqlmap.xml</sqlmap>
+		 	<sqlmap>com/originsys/eap/common/conf/infostationSqlmap.xml</sqlmap>
+		  </datasource>
+		  <datasource init-sql="com./originsys/eap/snepit/init.sql" database-type="oracle">
+			<sqlmap>com/originsys/eap/conf/mysql_baseSql.xml</sqlmap>
+			<sqlmap>com/originsys/eap/conf/core.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/oracle/workflow_sqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/sequenceSqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/pointSqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/oracle/common_sqlmap.xml</sqlmap>	
+			<sqlmap>com/originsys/eap/common/conf/oracle/stationIinformation_sqlmap.xml</sqlmap>	
+			<sqlmap>com/originsys/eap/common/conf/oracle/organization_sqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/oracle/annexFileSqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/oracle/network_sqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/oracle/userSqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/oracle/roleSqlmap.xml</sqlmap>
+			<sqlmap>com/originsys/eap/common/conf/workCalendarSqlmap.xml</sqlmap>
+		  </datasource>
+		  <datasource init-sql="com./originsys/eap/snepit/init.sql" database-type="sybase">	
+				<sqlmap>com/originsys/eap/conf/sybase/mysql_baseSql.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/datasourcesqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/actionSql.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/templateSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/siteSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/skinSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/workflow_sqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/viewSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/sequenceSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/roleSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/contentTemplateSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/system.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/functionGroupSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/enumSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/dictionarySqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/advertisementSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/indexconfigSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/commonmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/ycextendedattributeSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/tagsqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/wfuser_sqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/commonattributeSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/common/conf/sybase/common_sqlmap.xml</sqlmap>	
+				<sqlmap>com/originsys/eap/common/conf/sybase/stationIinformation_sqlmap.xml</sqlmap>	
+				<sqlmap>com/originsys/eap/common/conf/sybase/organization_sqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/conf/sybase/visitcountSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/common/conf/sybase/annexFileSqlmap.xml</sqlmap>
+				<sqlmap>com/originsys/eap/common/conf/sybase/network_sqlmap.xml</sqlmap>				
+		  </datasource>
+		</datasources>
+	<resource>
+		<group id="jqueryUI">
+			<file type="css">/resource/css/font-awesome.min.css</file>
+			<file type="js">/resource/js/common.js</file>
+			<file type="js">/resource/js/jquery-ui-1.11.4.min.js</file>
+			<file type="skincss">jquery-ui.min.css</file>
+			<file type="js">/resource/js/jquery-migrate-1.2.1.js</file>
+			<file type="css">/resource/css/custom.css</file>
+		</group>
+		<group id="bootstrap">
+			<file type="css">/resource/css/bootstrap.min.css</file>
+			<file type="js">/resource/js/bootstrap.min.js</file>
+			<file type="js">/resource/js/respond.min.js</file>
+		</group>
+		<group id="jqgrid">
+			<file type="css">/resource/css/ui.jqgrid-4.4.3.css</file>
+			<file type="js">/resource/js/jquery-migrate-1.2.1.js</file>
+			<file type="js">/resource/js/jquery.jqGrid-4.4.3.min.js</file>
+			<file type="js">/resource/js/i18n/grid.locale-cn-4.4.3.js</file>
+		</group>
+		<group id="aceUIgrid">
+			<file type="css">/resource/assets/css/bootstrap.min.css</file>
+			<file type="css">/resource/assets/font-awesome/4.5.0/css/font-awesome.min.css</file>
+			<file type="css">/resource/assets/css/jquery-ui.min.css</file>
+			<file type="css">/resource/assets/css/bootstrap-datepicker3.min.css</file>
+			<file type="css">/resource/assets/css/ui.jqgrid.min.css</file>
+			<file type="css">/resource/assets/css/fonts.googleapis.com.css</file>			
+			<file type="css">/resource/assets/css/ace.min.css</file>
+			<file type="css" browser="lte IE 9">/resource/assets/css/ace-part2.min.css</file>
+			<file type="css">/resource/assets/css/ace-skins.min.css</file>
+			<file type="css">/resource/assets/css/ace-rtl.min.css</file>
+			<file type="css" browser="lte IE 9">/resource/assets/css/ace-ie.min.css</file>
+			<file type="js">/resource/assets/js/ace-extra.min.js</file>
+			<file type="js" browser="lte IE 8">/resource/assets/js/html5shiv.min.js</file>
+			<file type="js" browser="lte IE 8">/resource/assets/js/respond.min.js</file>			
+			<file type="js">/resource/assets/js/bootstrap.min.js</file>
+			<file type="js">/resource/assets/js/bootstrap-datepicker.min.js</file>		
+			<file type="js">/resource/assets/js/jquery.jqGrid.min.js</file>
+			<file type="js">/resource/assets/js/grid.locale-en.js</file>			
+			<file type="js">/resource/assets/js/ace-elements.min.js</file>
+			<file type="js">/resource/assets/js/ace.min.js</file>
+			<file type="css">/resource/css/font-awesome.min.css</file>
+			<file type="js">/resource/js/common.js</file>
+			<file type="js">/resource/assets/js/jquery-ui.min.js</file>
+			<file type="js">/resource/assets/js/jquery.ui.touch-punch.min.js</file>
+		</group>
+		<group id="codemirror">
+			<file type="css">/resource/codemirror/lib/codemirror.css</file>
+			<file type="js">/resource/codemirror/lib/codemirror.js</file>
+			<file type="css">/resource/codemirror/addon/search/matchesonscrollbar.css</file>
+			<file type="js">/resource/codemirror/addon/search/searchcursor.js</file>
+			<file type="js">/resource/codemirror/addon/search/search.js</file>
+			<file type="js">/resource/codemirror/addon/scroll/annotatescrollbar.js</file>
+			<file type="js">/resource/codemirror/addon/search/matchesonscrollbar.js</file>
+			<file type="js">/resource/codemirror/mode/xml/xml.js</file>
+			<file type="js">/resource/codemirror/mode/javascript/javascript.js</file>
+			<file type="js">/resource/codemirror/mode/css/css.js</file>
+
+		</group>
+	</resource>
+	<tasks>
+	    <task name="同步微信用户" class="com.originsys.eap.common.wx.action.GetUserInfo"  trigger_type="0" >
+	        <description>定时获取微信用户列表</description>
+	        <param></param>
+	    </task>
+	</tasks>
+</component>
